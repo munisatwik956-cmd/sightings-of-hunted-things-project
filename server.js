@@ -126,7 +126,7 @@ function sanitizeInput(data){
 }
 
 function createAlert(sighting){
-    console.log(`Send Alert to Gost Hunters in ${sighting.location}`)
+    alert(`Alert message is sent to Gost Hunters in ${sighting.location}`)
 }
 
 
