@@ -5,8 +5,8 @@ import sanitizeHtml from 'sanitize-html'
 import EventEmitter from 'node:events'
 
 
-const sightingEvents = new EventEmitter()//
-sightingEvents.on('sighting-added', createAlert)//
+const sightingEvents = new EventEmitter()
+sightingEvents.on('sighting-added', createAlert)
 
 
 function sendResponce(res,statusCode,contentType,payload){
@@ -75,7 +75,7 @@ async function handlePost(req,res){
 
         await addNewSighting(sanitizedBody)
 
-        sightingEvents.emit('sighting-added',sanitizedBody)//
+        sightingEvents.emit('sighting-added',sanitizedBody)
 
         sendResponce(res,201,'application/json',JSON.stringify(sanitizedBody))
 
@@ -131,29 +131,13 @@ function createAlert(sighting){
 
 
 
-//console.log(import.meta)
-const PORT=process.env.PORT || 8000 //"process.env.PORT" add this when you want to publish to internet
+
+const PORT=8000 
 const __dirname=import.meta.dirname
 const __filename=import.meta.filename
 
 
-
-//see the out put
-// console.log(sanitizeHtml('h1: <h1>I am in an h1 tag</h1>'))
-// console.log(sanitizeHtml('p: <p>I am in a p tag</p>',{allowedTags:['p'],allowedAttributes:{}}))
-// console.log(sanitizeHtml('style: <style>Dam.in.a style.tag</style>'))
-// console.log(sanitizeHtml('script: <script>I am in a script tag</script>'))
-
-
-
-
-
-const server= http.createServer(async (req,res)=>{
-    //const content=fs.readFileSync(pathToResource,'utf8')(Block the code excutation until the complete file is read)
-
-    
-    //res.writeHead(200,{'ContentTtype':'text/html'})//instead of res.StatusCode,res.setHeader you can write this line(You can not modifiy headers after this line)
-
+const server= http.createServer(async (req,res)=>{    
     if(req.url.startsWith('/api')){
         if(req.method === 'GET'){
             return await handleGet(res)
@@ -167,7 +151,7 @@ const server= http.createServer(async (req,res)=>{
             const pathToResource=path.join(publicDir,req.url === '/' ? "index.html" : req.url)
 
 
-            const ext = path.extname(pathToResource)//gives extension of a file
+            const ext = path.extname(pathToResource)
             const content = await fs.readFile(pathToResource)
 
             
@@ -175,7 +159,7 @@ const server= http.createServer(async (req,res)=>{
 
 
         }catch(err){
-            if(err.code === 'ENOENT'){//ENOENT error occurs when you try to load file that doesnot exist
+            if(err.code === 'ENOENT'){
                 const publicDir=path.join(__dirname,'public')
                 const pathToResource=path.join(publicDir,'404.html')
 
